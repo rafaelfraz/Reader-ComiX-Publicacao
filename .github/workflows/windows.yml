@@ -1,0 +1,35 @@
+name: Gerar ReaderComiX Windows
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  compilar:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Instalar bibliotecas
+        run: python -m pip install -r requirements.txt PyMuPDF pyinstaller
+      - name: Conferir bibliotecas
+        run: python -c "import PySide6.QtPdf, pymupdf, PIL, rarfile; print('Dependências carregadas')"
+      - name: Criar programa
+        run: python -m PyInstaller --noconfirm --clean --windowed --onedir --name ReaderComiX --collect-all PySide6 --collect-all pymupdf main_v09.3.py
+      - name: Verificar inicialização
+        shell: pwsh
+        run: |
+          $app = Start-Process -FilePath (Resolve-Path 'dist/ReaderComiX/ReaderComiX.exe') -PassThru
+          Start-Sleep -Seconds 15
+          $app.Refresh()
+          if ($app.HasExited) { throw "O executável encerrou no início. Código: $($app.ExitCode)" }
+          Stop-Process -Id $app.Id -Force
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ReaderComiX-v09.3-Windows
+          path: dist/ReaderComiX/
+          if-no-files-found: error
+          retention-days: 30

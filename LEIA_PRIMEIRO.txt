@@ -1,0 +1,13 @@
+Este kit contém somente a configuração para gerar o executável; não contém nem substitui seu código.
+
+1. Extraia o ZIP por completo.
+2. Abra o GitHub Desktop no repositório Reader-ComiX-Publicacao.
+3. Selecione Repository > Show in Explorer para abrir a pasta do repositório.
+4. Copie a pasta .github deste kit para dentro da pasta do repositório. Confira que o arquivo se encontra em .github/workflows/windows.yml e que main_v09.3.py e requirements.txt estão na pasta principal.
+5. Volte ao GitHub Desktop, confira a alteração, escreva um Summary, faça Commit e clique Push origin.
+6. Na página do repositório no GitHub, clique Actions > Gerar ReaderComiX Windows > execução mais recente. Aguarde terminar.
+7. Com marca verde, abra a execução e baixe o arquivo ReaderComiX-v09.3-Windows em Artifacts. Extraia tudo e teste ReaderComiX.exe. Mantenha todos os arquivos da pasta junto do executável.
+8. Se funcionar, na página do repositório acesse Releases > Draft a new release. Escolha uma tag, como v0.9.3-beta, anexe o ZIP do artefato, marque pré-lançamento e publique. Compartilhe o link da Release.
+9. Se houver erro no Actions, abra a execução, clique no passo vermelho e copie a mensagem.
+
+O aplicativo gerado deve ser testado no Windows antes de publicar. O OCR continua exigindo Tesseract instalado separadamente e alguns arquivos CBR podem exigir 7-Zip.
